@@ -8,7 +8,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>JavaScript Calculator</h1>
       <Calculator />
     </div>
   )

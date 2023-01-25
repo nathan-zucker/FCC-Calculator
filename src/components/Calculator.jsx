@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import './Calculator.css'
 
 const buttonIds = [
     "zero",
@@ -11,7 +12,7 @@ const buttonIds = [
     "six",
     "seven",
     "eight",
-    "nine"
+    "nine",
 ]
 
 const operations = [
@@ -39,6 +40,18 @@ function Calculator () {
     const output = useSelector(state=>state.output)
     const dispatch = useDispatch()
     const [entry, setEntry] = useState([])
+
+    function backspace () {
+        if (entry.length > 0) {
+            let backsp = [...entry];
+            backsp.pop()
+            setEntry(backsp)
+        } else if (input.length > 0) {
+            let backsp = [...input];
+            backsp.pop()
+            dispatch({type: 'input', payload: backsp})
+        } else {return}
+    }
 
     function clear () {
         dispatch({type: 'clear'})
@@ -104,36 +117,32 @@ function Calculator () {
     }
 
     return (
-        <div>
-            <div id="display">
-                <h2>{output !== 0 ? output : input.join('')+entry.join('') || 0}</h2>
-                
+        <div id="calculator">
+            <div id="display-container">
+                <div id="display">
+                    <h4 id="expression">{output !== 0 ? output : input.join('')+entry.join('') || 0}</h4>
+                </div>
+                <h2 id="entry">{entry.length > 0 ? entry : 0}</h2>
             </div>
             
-            <div>
-                <h3>entry: {entry}</h3>
-                
+            
+            <div id="button-pad">
                 <button id="decimal" onClick={()=>{
                     if (entry.join('').includes('.')){return console.log('already has decimal')}
                     else {
-                        setEntry([entry.join('').toString()+'.'])
-                    }
-                    
-                    }}
-                >.</button>
+                        setEntry([...entry, '.'])
+                    }      
+                }}>.</button>
+                
                 {numberPad()}
-                
-            </div>
-            <div>
-                
                 
                 {operationPad()}
                 <button id="equals" onClick={()=>equals()}>=</button>
 
-                <h3>
-                    <button onClick={()=>setEntry([])}>CE</button>
-                    <button id="clear" onClick={()=>clear()}>CLEAR</button>
-                </h3>
+                <button id="delete" onClick={()=>backspace()} >DELETE</button>
+                <button id="clearEntry" onClick={()=>setEntry([])}>CE</button>
+                <button id="clear" onClick={()=>clear()}>CLEAR</button>
+                
 
             </div>
         </div>
