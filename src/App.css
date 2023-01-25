@@ -1,9 +1,6 @@
 :root {
   background-image: url("./src/assets/hk-purple-steps.svg");
   background-size: cover;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   overflow: hidden;
 }
 
