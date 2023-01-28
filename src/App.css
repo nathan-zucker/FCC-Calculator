@@ -1,5 +1,5 @@
 :root {
-  background-image: url("./src/assets/hk-purple-steps.svg");
+  background-image: url("./public/assets/hk-purple-steps.svg");
   background-size: cover;
   overflow: hidden;
 }
